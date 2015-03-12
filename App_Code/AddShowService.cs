@@ -82,4 +82,46 @@ public class AddShowService : IAddShowService
         
         return result;
     }
+
+    public List<Artist> GetArtists()
+    {
+        List<Artist> artists = new List<Artist>();
+
+        var arts = from a in ShowDB.Artists
+                   select new { a.ArtistKey, a.ArtistName };
+
+        
+        foreach (var a in arts)
+        {
+            Artist art = new Artist();
+            art.ArtistKey = a.ArtistKey;
+            art.ArtistName = a.ArtistName;
+            artists.Add(art);
+        }
+
+        return artists;
+    }
+
+
+    public List<Show> GetShows(int vKey)
+    {
+        List<Show> shows = new List<Show>();
+
+        var shw = from s in ShowDB.Shows
+                 where s.VenueKey == vKey
+                 select new { s.ShowKey, s.ShowName, s.ShowDate, s.ShowTime, s.ShowTicketInfo };
+
+        foreach (var sh in shw)
+        {
+            Show s = new Show();
+            s.ShowKey = sh.ShowKey;
+            s.ShowName = sh.ShowName;
+            s.ShowDate = sh.ShowDate;
+            s.ShowTime = sh.ShowTime;
+            s.ShowTicketInfo = sh.ShowTicketInfo;
+            shows.Add(s);
+        }
+
+        return shows;
+    }
 }

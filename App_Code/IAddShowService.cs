@@ -15,4 +15,10 @@ public interface IAddShowService
     [OperationContract]
     bool AddShow(Show s, ShowDetail sd);
 
+    [OperationContract]
+    List<Artist> GetArtists();
+
+    [OperationContract]
+    List<Show> GetShows(int vKey);
+
 }
